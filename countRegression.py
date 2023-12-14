@@ -6,10 +6,9 @@ import statsmodels.api as sm
 np.random.seed(42)
 X = np.random.rand(100, 1) * 10  # Independent variable
 lambda_ = 2  # Poisson parameter
-y = np.random.poisson(lambda_, size=(100,))  # Dependent variable
-
-# Add some noise to make the data more realistic
-y += np.random.normal(0, 0.5, size=(100,))
+y_poisson = np.random.poisson(lambda_, size=(100,)).astype(float)  # Convert to float
+y_noise = np.random.normal(0, 0.5, size=(100,))
+y = y_poisson + y_noise
 
 # Fit Poisson regression model
 X = sm.add_constant(X)  # Add a constant term for the intercept
@@ -28,3 +27,4 @@ plt.ylabel('Dependent Variable (Counts)')
 plt.title('Poisson Regression Example')
 plt.legend()
 plt.show()
+
